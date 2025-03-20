@@ -49,7 +49,7 @@ boolean check_CEREG_Status_Validity()
 // Function to check if CNACT contains a valid IP address
 boolean check_CNACT_IP_Validity()
 {
-    String CNACT_Response = send_AT("AT+CNACT?");
+    String CNACT_Response = send_AT("AT+CNACT?", 10000);
     uint8_t quotePosition = CNACT_Response.indexOf('"');
     boolean isCNACTValid = false; // Default value
 
@@ -66,6 +66,10 @@ boolean check_CNACT_IP_Validity()
             Serial.println("CNACT contains a valid IP");
             isCNACTValid = true;
         }
+        else
+        {
+            Serial.println("CNACT contains an invalid IP");
+        }
     }
     else
     {
@@ -78,22 +82,16 @@ boolean check_CNACT_IP_Validity()
 // Function to activate the PDP context and ensure the module is active
 void activate_PDP_Context()
 {
-    String CNACT_Activation_Response = send_AT("AT+CNACT=0,1", 5000);
-    unsigned long timeoutStart = millis(); // Record the current time to limit the waiting time
-    unsigned long timeoutDuration = 5000;  // Set a maximum wait time of 5 seconds
+    String CNACT_Activation_Response = send_AT("AT+CNACT=0,1", 10000);
 
-    while (CNACT_Activation_Response.indexOf("ACTIVE") == -1)
+    if (CNACT_Activation_Response.indexOf("ACTIVE") != -1)
     {
-        if (millis() - timeoutStart > timeoutDuration)
-        {
-            Serial.println("Timeout reached, CNACT is active.");
-            return; // Exit the function if the timeout is reached
-        }
-
-        CNACT_Activation_Response = send_AT("AT+CNACT?", 1000); // Retry after short delay
+        Serial.println("CNACT is active");
     }
-
-    Serial.println("CNACT is active");
+    else
+    {
+        Serial.println("Timeout reached, CNACT is not active.");
+    }
 }
 
 // Function to initialize the CAT-M1 module and configure it
@@ -113,11 +111,8 @@ void setup_CATM1()
     send_AT("AT+CGNAPN");
     send_AT("AT+CNCFG=0,1,iot.1nce.net");
 
-    // Activate the APP Network (PDP context)
-    // Wait for a valid response: +APP PDP: 0,ACTIVE
     activate_PDP_Context();
 
-    // Check the CEREG state to verify network registration
     check_CEREG_Status_Validity();
 
     // Retrieve additional information about the CAT-M1 connection

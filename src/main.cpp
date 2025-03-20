@@ -4,26 +4,26 @@
 #include "SIM7080G/ARGALI_PINOUT.hpp"
 #include "SIM7080G/modules/GNSS/SIM7080G_GNSS.hpp"
 #include "SIM7080G/modules/CATM1/SIM7080G_CATM1.hpp"
+#include "SIM7080G/modules/TCP/SIM7080G_TCP.hpp"
 
 unsigned long period1;
 
 void setup()
 {
   pinMode(PIN_PWRKEY, OUTPUT);
-  reboot_SIM7080G();
-
   Serial.begin(115200); // Initialize serial port
   SIM7080G.begin(SIM7080G_BAUDRATE, SERIAL_8N1, PIN_RX, PIN_TX);
 
+  reboot_SIM7080G();
+
   period1 = millis();
 
-  send_AT("AT+SIMCOMATI"); // Check network connection
+  send_AT("AT+SIMCOMATI"); // Verify module
 
-  // Turn on the GPS module
-  // turn_On_GNSS();
-
-  // Turn on the 4G module
+  // CAT-M1 network activation
   setup_CATM1();
+
+  TCP_send(); // Now, we can open TCP Connection
 }
 
 void everyXs()
@@ -35,8 +35,6 @@ void everyXs()
     struct coordGNSS coordinates;
 
     // get_Position_GNSS(&coordinates);
-
-    boolean CATM1_Is_Valid = false;
 
     loop_CATM1();
 

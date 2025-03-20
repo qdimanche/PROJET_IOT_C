@@ -1,5 +1,7 @@
 #include <Arduino.h>
 #include "SIM7080G/modules/SERIAL/SIM7080G_SERIAL.hpp"
+#include <fstream>
+#include <nlohmann/json.hpp>
 
 String send_AT(String message, unsigned long timeout)
 {
@@ -9,7 +11,7 @@ String send_AT(String message, unsigned long timeout)
 
     SIM7080G.println(message);
 
-    while (((millis() - start_time) < timeout) && (uart_buffer.endsWith("OK") == false))
+    while (((millis() - start_time) < timeout) && (uart_buffer.endsWith("OK") == false && uart_buffer.endsWith("VALID") == false && uart_buffer.endsWith(">") == false ))
     {
         if (SIM7080G.available())
         {
