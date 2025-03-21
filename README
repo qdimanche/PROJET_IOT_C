@@ -1,0 +1,29 @@
+# TCP Server Setup Guide
+
+## 1. Making the Server Executable
+Before running the TCP server, you need to grant execution permissions to the file. Open a terminal and run the following command:
+
+chmod +x /Users/quentindimanche/Projects/junia/mastere/projet-iot/CBOR_TCP_server_macos.dmg
+
+## 2. Running the TCP Server Locally
+Once the file is executable, you can start the server by running:
+
+
+./Users/quentindimanche/Projects/junia/mastere/projet-iot/CBOR_TCP_server_macos.dmg
+
+## 3. Setting Up TCP Tunnel with Pinggy
+To expose your local TCP server using Pinggy, follow these steps:
+
+1. Go to the **Pinggy Dashboard** on their website.
+2. Navigate to the **TCP Tunnel** section.
+3. Set the **Share Port** value to `4567`.
+4. Select the appropriate OS (`Mac ZSH`).
+5. Copy the generated SSH command and execute it in your terminal.
+
+### Example SSH Command:
+ssh -p 443 -R0:localhost:4567 -o StrictHostKeyChecking=no -o ServerAliveInterval=30 YJCIaMpNMbs+tcp@free.pinggy.io
+
+## 4. Verifying the Connection
+After executing the SSH command, your server should be accessible via the provided Pinggy TCP address. You can test the connection using:
+
+If the connection is successful, your TCP server is now publicly accessible!
