@@ -1,4 +1,4 @@
-void setup_CATM1();
+void turn_On_CATM1();
 
 void loop_CATM1();
 

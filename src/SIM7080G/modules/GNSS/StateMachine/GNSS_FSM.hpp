@@ -1,0 +1,1 @@
+void execute_SIM7080G_GNSS_State();

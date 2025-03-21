@@ -95,7 +95,7 @@ void activate_PDP_Context()
 }
 
 // Function to initialize the CAT-M1 module and configure it
-void setup_CATM1()
+void turn_On_CATM1()
 {
     // Disable GNSS before enabling CAT-M1 (refer to the datasheet)
     send_AT("AT+CNMP=38");

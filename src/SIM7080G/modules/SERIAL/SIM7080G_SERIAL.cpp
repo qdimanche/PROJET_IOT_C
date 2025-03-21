@@ -20,8 +20,6 @@ String send_AT(String message, unsigned long timeout)
         }
     }
 
-    Serial.println(uart_buffer);
-
     return uart_buffer;
 }
 
