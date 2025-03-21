@@ -1,7 +1,7 @@
-void turn_On_CATM1();
+void turn_on_CATM1();
 
 void loop_CATM1();
 
-boolean check_CNACT_IP_Validity();
+boolean check_CNACT_IP_validity();
 
-boolean check_CEREG_Status_Validity();
+boolean check_CEREG_status_validity();

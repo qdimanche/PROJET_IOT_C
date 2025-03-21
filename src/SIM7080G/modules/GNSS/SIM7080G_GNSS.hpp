@@ -15,8 +15,9 @@ struct coordGNSS
 };
 
 // Function declarations
-void turn_On_GNSS();
-void turn_Off_GNSS();
-void get_Position_GNSS(coordGNSS *coordinates);
-void parse_GNSS_Position(String gnss_data, coordGNSS *coordinates);
-lat_lon get_Lat_Lon(String stringValue);
+void turn_on_GNSS();
+void turn_off_GNSS();
+void reboot_GNSS();
+void get_position_GNSS(coordGNSS *coordinates);
+void parse_GNSS_position(String gnss_data, coordGNSS *coordinates);
+lat_lon get_lat_lon(String stringValue);

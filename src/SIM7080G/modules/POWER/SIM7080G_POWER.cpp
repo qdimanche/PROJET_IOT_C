@@ -3,7 +3,7 @@
 #include "SIM7080G/ARGALI_PINOUT.hpp"
 #include "SIM7080G/modules/SERIAL/SIM7080G_SERIAL.hpp"
 
-void turn_On_SIM7080G()
+void turn_on_SIM7080G()
 {
     digitalWrite(PIN_PWRKEY, LOW);
     delay(200);
@@ -11,7 +11,7 @@ void turn_On_SIM7080G()
     delay(3000);
 }
 
-void turn_Off_SIM7080G()
+void turn_off_SIM7080G()
 {
     String response = send_AT("AT+CPOWD=1");
 
@@ -34,11 +34,11 @@ void turn_Off_SIM7080G()
 
 void reboot_SIM7080G()
 {
-    turn_Off_SIM7080G();
-    turn_On_SIM7080G();
+    turn_off_SIM7080G();
+    turn_on_SIM7080G();
 }
 
-void hard_Reset_SIM7080G()
+void hard_reset_SIM7080G()
 {
     digitalWrite(PIN_PWRKEY, LOW);
     delay(15000);

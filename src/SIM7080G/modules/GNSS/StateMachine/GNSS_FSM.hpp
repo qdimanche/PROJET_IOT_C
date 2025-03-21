@@ -1,1 +1,1 @@
-void execute_SIM7080G_GNSS_State();
+void execute_SIM7080G_GNSS_state();

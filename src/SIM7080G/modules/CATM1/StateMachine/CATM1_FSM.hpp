@@ -1,1 +1,1 @@
-void execute_SIM7080G_CATM1_State();
+void execute_SIM7080G_CATM1_state();

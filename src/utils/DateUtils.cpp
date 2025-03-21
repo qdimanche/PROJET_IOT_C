@@ -1,11 +1,9 @@
 #include <Arduino.h>
 
 // Function to convert a "YYYYMMDDHHMMSS" timestamp to a Unix timestamp
-uint64_t convertToUnixTimestamp(String timestamp)
+uint64_t convert_to_unix_timestamp(String timestamp)
 {
     struct tm t = {0}; // Initialize to 0
-
-    Serial.println("Retrieved timestamp " + timestamp);
 
     // Extract values from the timestamp
     t.tm_year = timestamp.substring(0, 4).toInt() - 1900; // Year since 1900

@@ -16,21 +16,26 @@ struct coordGNSS
 };
 
 // Function to turn on the GNSS
-void turn_On_GNSS()
+void turn_on_GNSS()
 {
     send_AT("AT+CGNSPWR=1");         // Turn on the GNSS
     send_AT("AT+CGNSMOD=1,0,0,1,0"); // Configure GNSS mode
 }
 
 // Function to turn off the GNSS
-void turn_Off_GNSS()
+void turn_off_GNSS()
 {
     send_AT("AT+CGNSPWR=0"); // Turn off the GNSS
     delay(1000);
 }
 
+void reboot_GNSS() {
+    turn_off_GNSS();
+    turn_on_GNSS();
+}
+
 // Function to extract latitude and longitude from a string
-lat_lon get_Lat_Lon(String stringValue)
+lat_lon get_lat_lon(String stringValue)
 {
     lat_lon value;
     int decimalIndex = stringValue.indexOf('.');
@@ -57,7 +62,7 @@ lat_lon get_Lat_Lon(String stringValue)
 }
 
 // Function to parse GNSS position from a string and store it in the provided coordinates structure
-void parse_GNSS_Position(String gnss_data, coordGNSS *coordinates)
+void parse_GNSS_position(String gnss_data, coordGNSS *coordinates)
 {
     if (coordinates == nullptr)
     {
@@ -114,10 +119,10 @@ void parse_GNSS_Position(String gnss_data, coordGNSS *coordinates)
     Serial.println("Latitude: " + latitude);
     Serial.println("Longitude: " + longitude);
 
-    uint64_t timestamp = convertToUnixTimestamp(timestamp_str);
+    uint64_t timestamp = convert_to_unix_timestamp(timestamp_str);
 
-    lat_lon multiple_parts_latitude = get_Lat_Lon(latitude);
-    lat_lon multiple_parts_longitude = get_Lat_Lon(longitude);
+    lat_lon multiple_parts_latitude = get_lat_lon(latitude);
+    lat_lon multiple_parts_longitude = get_lat_lon(longitude);
 
     // Correct the initialization of the coordGNSS structure
     coordinates->timestamp = timestamp;
@@ -126,7 +131,7 @@ void parse_GNSS_Position(String gnss_data, coordGNSS *coordinates)
 }
 
 // Function to get GNSS position and store it in the provided coordinates structure
-void get_Position_GNSS(coordGNSS *coordinates)
+void get_position_GNSS(coordGNSS *coordinates)
 {
     if (coordinates == nullptr)
     {
@@ -139,7 +144,7 @@ void get_Position_GNSS(coordGNSS *coordinates)
     if (response.indexOf("+CGNSINF:") != -1)
     {
         Serial.println("GNSS response: " + response);
-        parse_GNSS_Position(response, coordinates);
+        parse_GNSS_position(response, coordinates);
 
         // Check the coordinates before displaying them
         if (coordinates->latitude.partEnt != 0 || coordinates->longitude.partEnt != 0)

@@ -11,7 +11,7 @@ String send_AT(String message, unsigned long timeout)
 
     SIM7080G.println(message);
 
-    while (((millis() - start_time) < timeout) && (uart_buffer.endsWith("OK") == false && uart_buffer.endsWith("VALID") == false && uart_buffer.endsWith(">") == false ))
+    while (((millis() - start_time) < timeout) && (uart_buffer.endsWith("VALID") == false && uart_buffer.endsWith(">") == false))
     {
         if (SIM7080G.available())
         {
@@ -23,7 +23,7 @@ String send_AT(String message, unsigned long timeout)
     return uart_buffer;
 }
 
-String display_Battery()
+String display_battery()
 {
     String battery = send_AT("AT+CBC"); // Sends the AT command and receives the response
 

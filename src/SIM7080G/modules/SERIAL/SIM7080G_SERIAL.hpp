@@ -5,4 +5,4 @@
 
 String send_AT(String message, unsigned long timeout = 1000);
 
-String display_Battery();
+String display_battery();

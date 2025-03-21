@@ -8,7 +8,6 @@ chmod +x /Users/quentindimanche/Projects/junia/mastere/projet-iot/CBOR_TCP_serve
 ## 2. Running the TCP Server Locally
 Once the file is executable, you can start the server by running:
 
-
 ./Users/quentindimanche/Projects/junia/mastere/projet-iot/CBOR_TCP_server_macos.dmg
 
 ## 3. Setting Up TCP Tunnel with Pinggy

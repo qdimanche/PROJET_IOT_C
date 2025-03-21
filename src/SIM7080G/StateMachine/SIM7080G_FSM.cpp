@@ -9,20 +9,20 @@
 #include "SIM7080G/modules/GNSS/StateMachine/GNSS_FSM.hpp"
 
 
-void execute_SIM7080G_State()
+void execute_SIM7080G_state()
 {
   switch (SIM7080G_currentState)
   {
   case SIM7080G_PowerOn:
     Serial.println("State: PowerOn - Turning on SIM7080G");
-    turn_On_SIM7080G();
+    turn_on_SIM7080G();
     
-    execute_SIM7080G_GNSS_State();
+    execute_SIM7080G_GNSS_state();
     break;
 
   case SIM7080G_PowerOff:
     Serial.println("State: PowerOff - Turning off SIM7080G");
-    turn_Off_SIM7080G();
+    turn_off_SIM7080G();
     Serial.println("State: Transitioning to GNSS TurnOn");
     break;
 

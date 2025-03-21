@@ -9,7 +9,7 @@ using json = nlohmann::json;
 // Opens a TCP connection with the SIM7080G module.
 bool open_tcp_connection()
 {
-    String response = send_AT("AT+CAOPEN=0,0,\"TCP\",\"rnews-2a04-cec0-1144-d383-d04e-ae0a-b4c1-657a.a.free.pinggy.link\",46765", 10000);
+    String response = send_AT("AT+CAOPEN=0,0,\"TCP\",\"rnnwd-185-223-151-250.a.free.pinggy.link\",41473", 5000);
     if (response.indexOf("ERROR") != -1)
     {
         Serial.println("Failed to open TCP connection.");

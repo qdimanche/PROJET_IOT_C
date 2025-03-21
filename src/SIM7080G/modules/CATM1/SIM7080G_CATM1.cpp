@@ -3,7 +3,7 @@
 #include "SIM7080G/modules/SERIAL/SIM7080G_SERIAL.hpp"
 
 // Function to fetch the CEREG status
-boolean check_CEREG_Status_Validity()
+boolean check_CEREG_status_validity()
 {
     String CEREG_Response = send_AT("AT+CEREG?");
     uint8_t commaPosition = CEREG_Response.indexOf(",");
@@ -47,13 +47,11 @@ boolean check_CEREG_Status_Validity()
 }
 
 // Function to check if CNACT contains a valid IP address
-boolean check_CNACT_IP_Validity()
+boolean check_CNACT_IP_validity()
 {
-    String CNACT_Response = send_AT("AT+CNACT?", 10000);
+    String CNACT_Response = send_AT("AT+CNACT?", 3000);
     uint8_t quotePosition = CNACT_Response.indexOf('"');
     boolean isCNACTValid = false; // Default value
-
-    Serial.println("CNACT_Response: " + CNACT_Response);
 
     if (quotePosition != -1)
     {
@@ -80,7 +78,7 @@ boolean check_CNACT_IP_Validity()
 }
 
 // Function to activate the PDP context and ensure the module is active
-void activate_PDP_Context()
+void activate_PDP_context()
 {
     String CNACT_Activation_Response = send_AT("AT+CNACT=0,1", 10000);
 
@@ -95,7 +93,7 @@ void activate_PDP_Context()
 }
 
 // Function to initialize the CAT-M1 module and configure it
-void turn_On_CATM1()
+void turn_on_CATM1()
 {
     // Disable GNSS before enabling CAT-M1 (refer to the datasheet)
     send_AT("AT+CNMP=38");
@@ -111,12 +109,12 @@ void turn_On_CATM1()
     send_AT("AT+CGNAPN");
     send_AT("AT+CNCFG=0,1,iot.1nce.net");
 
-    activate_PDP_Context();
+    activate_PDP_context();
 
-    check_CEREG_Status_Validity();
+    check_CEREG_status_validity();
 
     // Retrieve additional information about the CAT-M1 connection
-    check_CNACT_IP_Validity();
+    check_CNACT_IP_validity();
     send_AT("AT+GSN");   // Retrieve the model information
     send_AT("AT+CCID");  // Retrieve the SIM card ID
     send_AT("AT+COPS?"); // Check the network operator

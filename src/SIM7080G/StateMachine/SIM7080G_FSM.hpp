@@ -1,3 +1,3 @@
 #include <Arduino.h>
 
-void execute_SIM7080G_State();
+void execute_SIM7080G_state();
